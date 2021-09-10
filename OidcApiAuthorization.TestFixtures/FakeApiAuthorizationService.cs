@@ -1,11 +1,13 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using OidcApiAuthorization.Abstractions;
+using OidcApiAuthorization.Base;
+using OidcApiAuthorization.Base.Interfaces;
+using OidcApiAuthorization.Base.Models;
 using OidcApiAuthorization.Models;
 
 namespace OidcApiAuthorization.TestFixtures
 {
-    public class FakeApiAuthorizationService : IApiAuthorization
+    public class FakeApiAuthorizationService : IApiAuthorization<HttpHeadersCollection>
     {
         public ApiAuthorizationResult ApiAuthorizationResultForTests { get; set; }
 

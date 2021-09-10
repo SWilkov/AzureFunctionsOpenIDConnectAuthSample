@@ -1,7 +1,6 @@
-﻿using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 
-namespace OidcApiAuthorization.Abstractions
+namespace OidcApiAuthorization.Base.Interfaces
 {
     public interface IJwtSecurityTokenHandlerWrapper
     {

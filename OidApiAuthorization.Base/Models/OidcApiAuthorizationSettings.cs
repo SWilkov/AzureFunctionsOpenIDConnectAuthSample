@@ -1,4 +1,4 @@
-﻿namespace OidcApiAuthorization
+﻿namespace OidcApiAuthorization.Base.Models
 {
     /// <summary>
     /// Encapsulates settings used in OpenID Connect (OIDC) API authorization.

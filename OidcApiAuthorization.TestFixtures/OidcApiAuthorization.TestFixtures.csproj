@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OidcApiAuthorization.Base\OidcApiAuthorization.Base.csproj" />
     <ProjectReference Include="..\OidcApiAuthorization\OidcApiAuthorization.csproj" />
     <ProjectReference Include="..\TestFixtures.AzureFunctions\TestFixtures.AzureFunctions.csproj" />
   </ItemGroup>

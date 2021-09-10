@@ -5,9 +5,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Protocols;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
-using OidcApiAuthorization.Abstractions;
+using OidcApiAuthorization.Base.Interfaces;
+using OidcApiAuthorization.Base.Models;
 
-namespace OidcApiAuthorization
+namespace OidcApiAuthorization.Base.Services
 {
     public class OidcConfigurationManager : IOidcConfigurationManager
     {

@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using OidcApiAuthorization.Abstractions;
-using OidcApiAuthorization.Models;
+using OidcApiAuthorization.Base.Interfaces;
+using OidcApiAuthorization.Base.Models;
 
 namespace OidcApiAuthorization
 {
     /// <summary>
     /// Encapsulates checks of OpenID Connect (OIDC) Authorization tokens in HTTP request headers.
     /// </summary>
-    public class OidcApiAuthorizationService : IApiAuthorization
+    public class OidcApiAuthorizationService : IApiAuthorization<HttpHeadersCollection>
     {
-        private readonly IAuthorizationHeaderBearerTokenExtractor _authorizationHeaderBearerTokenExractor;
+        private readonly IAuthorizationHeaderBearerTokenExtractor<HttpHeadersCollection> _authorizationHeaderBearerTokenExractor;
 
         private readonly IJwtSecurityTokenHandlerWrapper _jwtSecurityTokenHandlerWrapper;
 
@@ -25,7 +26,7 @@ namespace OidcApiAuthorization
 
         public OidcApiAuthorizationService(
             IOptions<OidcApiAuthorizationSettings> apiAuthorizationSettingsOptions,
-            IAuthorizationHeaderBearerTokenExtractor authorizationHeaderBearerTokenExractor,
+            IAuthorizationHeaderBearerTokenExtractor<HttpHeadersCollection> authorizationHeaderBearerTokenExractor,
             IJwtSecurityTokenHandlerWrapper jwtSecurityTokenHandlerWrapper,
             IOidcConfigurationManager oidcConfigurationManager)
         {
@@ -49,12 +50,12 @@ namespace OidcApiAuthorization
         /// Informatoin about the success or failure of the authorization.
         /// </returns>
         public async Task<ApiAuthorizationResult> AuthorizeAsync(
-            IHeaderDictionary httpRequestHeaders)
+            HttpHeadersCollection headers)
         {
             ApiAuthorizationResult apiAuthorizationResult = null;
 
             string authorizationBearerToken = _authorizationHeaderBearerTokenExractor.GetToken(
-                httpRequestHeaders);
+                headers);
 
             if (authorizationBearerToken == null)
             {

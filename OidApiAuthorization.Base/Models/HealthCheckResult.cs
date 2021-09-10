@@ -1,4 +1,4 @@
-﻿namespace OidcApiAuthorization.Models
+﻿namespace OidcApiAuthorization.Base.Models
 {
     public class HealthCheckResult
     {

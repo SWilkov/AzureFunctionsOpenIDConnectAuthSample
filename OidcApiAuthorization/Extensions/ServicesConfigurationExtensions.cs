@@ -1,8 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Azure.Functions.Worker.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OidcApiAuthorization.Abstractions;
+using OidcApiAuthorization.Base.Interfaces;
+using OidcApiAuthorization.Base.Models;
+using OidcApiAuthorization.Base.Services;
+using OidcApiAuthorization.Services;
+using OidcApiAuthorization.Wrappers;
 
-namespace OidcApiAuthorization
+namespace OidcApiAuthorization.Extensions
 {
     public static class ServicesConfigurationExtensions
     {
@@ -24,11 +29,11 @@ namespace OidcApiAuthorization
             // for the signing keys and other stuff that can be used across multiple
             // calls to the HTTP triggered Azure Functions.
 
-            services.AddSingleton<IAuthorizationHeaderBearerTokenExtractor, AuthorizationHeaderBearerTokenExtractor>();
+            services.AddSingleton<IAuthorizationHeaderBearerTokenExtractor<HttpHeadersCollection>, AuthorizationHeaderBearerTokenExtractor>();
             services.AddSingleton<IJwtSecurityTokenHandlerWrapper, JwtSecurityTokenHandlerWrapper>();
             services.AddSingleton<IOidcConfigurationManager, OidcConfigurationManager>();
 
-            services.AddSingleton<IApiAuthorization, OidcApiAuthorizationService>();
+            services.AddSingleton<IApiAuthorization<HttpHeadersCollection>, OidcApiAuthorizationService>();
         }
     }
 }

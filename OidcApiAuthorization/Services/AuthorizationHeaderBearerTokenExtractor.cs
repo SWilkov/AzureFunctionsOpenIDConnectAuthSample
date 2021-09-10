@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
-using OidcApiAuthorization.Abstractions;
+using Microsoft.Azure.Functions.Worker.Http;
+using OidcApiAuthorization.Base.Interfaces;
 
-namespace OidcApiAuthorization
+namespace OidcApiAuthorization.Services
 {
-    public class AuthorizationHeaderBearerTokenExtractor : IAuthorizationHeaderBearerTokenExtractor
+    public class AuthorizationHeaderBearerTokenExtractor : IAuthorizationHeaderBearerTokenExtractor<HttpHeadersCollection>
     {
         /// <summary>
         /// Extracts the Bearer token from the Authorization header of the given HTTP request headers.
@@ -20,26 +19,18 @@ namespace OidcApiAuthorization
         /// or null if the Authorization header was not found, it is in an invalid format,
         /// or its value is not a Bearer token.
         /// </returns>
-        public string GetToken(IHeaderDictionary httpRequestHeaders)
+        public string GetToken(HttpHeadersCollection headers)
         {
-            // Get a StringValues object that represents the content of the Authorization header found in the given
-            // headers.
-            // Note that the default for a IHeaderDictionary is a StringValues object with one null string.
-            StringValues rawAuthorizationHeaderValue = httpRequestHeaders
-                .SingleOrDefault(x => x.Key == "Authorization") // Case sensitive.
-                .Value;
 
-            if (rawAuthorizationHeaderValue.Count != 1)
+            var rawAuthorizationHeaderValue = headers.SingleOrDefault(x => x.Key == "Authorization").Value;
+            if (rawAuthorizationHeaderValue.Count() != 1)
             {
-                // StringValues' Count will be zero if there is no Authorization header
-                // and greater than one if there are more than one Authorization headers.
                 return null;
             }
 
             // We got a value from the Authorization header.
-
             if (!AuthenticationHeaderValue.TryParse(
-                    rawAuthorizationHeaderValue, // StringValues automatically convert to string.
+                    rawAuthorizationHeaderValue.First(), 
                     out AuthenticationHeaderValue authenticationHeaderValue))
             {
                 // Invalid token format.

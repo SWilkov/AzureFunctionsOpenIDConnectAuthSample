@@ -1,8 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
-using OidcApiAuthorization.Abstractions;
+using OidcApiAuthorization.Base.Interfaces;
 
-namespace OidcApiAuthorization
+namespace OidcApiAuthorization.Wrappers
 {
     public class JwtSecurityTokenHandlerWrapper : IJwtSecurityTokenHandlerWrapper
     {

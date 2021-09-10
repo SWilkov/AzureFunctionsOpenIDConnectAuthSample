@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 
-namespace OidcApiAuthorization.Abstractions
+namespace OidcApiAuthorization.Base.Interfaces
 {
     public interface IOidcConfigurationManager
     {

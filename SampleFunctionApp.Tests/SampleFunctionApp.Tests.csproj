@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OidcApiAuthorization.TestFixtures\OidcApiAuthorization.TestFixtures.csproj" />
-    <ProjectReference Include="..\OidcApiAuthorization\OidcApiAuthorization.csproj" />
     <ProjectReference Include="..\SampleFunctionApp\SampleFunctionApp.csproj" />
     <ProjectReference Include="..\TestFixtures.AzureFunctions\TestFixtures.AzureFunctions.csproj" />
   </ItemGroup>
